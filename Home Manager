@@ -1,0 +1,36 @@
+{ pkgs ? import <nixpkgs> {} }:
+
+# Set the base path for our home directory
+basePath = "/run/current-system/sw/";
+
+# Define the list of users we want to configure
+users = [ "user" ];
+
+# Configure each user individually
+for user in users {
+   # Generate a unique name for the user's home directory
+   homeDirName = "${user}-home";
+
+   # Create the user's home directory
+   mkdirs ${basePath}/${homeDirName};
+
+   # Set the owner and group of the home directory
+   chown ${user} ${user} ${basePath}/${homeDirName};
+
+   # Add the user to the wheel group (to allow sudo)
+   addUserToGroup ${user} wheel;
+
+   # Install the user's dotfiles from GitHub
+   gitClone https://github.com/username/dotfiles.git ${basePath}/${homeDirName}/.dotfiles;
+
+   # Symlink the dotfiles into the user's home directory
+   symlinkRelatives ${basePath}/${homeDirName}/.dotfiles/* ~/${user};
+}
+
+# Install some common applications for the user
+applications = [ "firefox" "vim" "zsh" ];
+
+for application in applications {
+   # Install the application for each user
+   installPackage ${application} ~/${user};
+}
