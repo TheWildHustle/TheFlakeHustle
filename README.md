@@ -1,7 +1,7 @@
 Hey Freaks,
 
-TheWildHustle is a nix noob running flake/home manager experiments
-Hustle thinks the potential of modular and declarative builds is underrated 
+TheWildHustle is a nix noob running flake/home manager experiments.
+Hustle thinks the potential of modular and declarative builds is underrated.
 ____________________________________________________________________________
 Roadmap 
 - 10 fully developed and practical flakes
