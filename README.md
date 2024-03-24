@@ -5,7 +5,7 @@ Hustle thinks the potential of modular and declarative builds is underrated
 ____________________________________________________________________________
 Roadmap 
 - 10 fully developed and practical flakes
-- home manager to move between the flakes
+- Home manager to move between the flakes
 - Flakes uploaded to gitworkshop.dev
 - Pay sats for Cool flakes on Stacker News
 
