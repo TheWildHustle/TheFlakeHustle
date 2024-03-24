@@ -1,0 +1,134 @@
+{ pkgs ? import <nixpkgs> {} }:
+
+{
+  name = "my-daily-driver";
+  description = "My personal NixOS setup for daily use.";
+  homepage = "";
+  license = "";
+  maintainers = [];
+  inputs = [ pkgs ];
+  outputs = { self, nixpkgs }:
+   let
+     myPackages = [
+       # Your favorite packages go here
+       vscode
+       firefox
+       google-chrome
+       spotify
+       discord
+       slack
+       sublime-text
+       gimp
+       inkscape
+       blender
+       virtualbox
+       docker
+       kubernetes-cli
+       neovim
+       tmux
+       zsh
+       oh-my-zsh
+       nodejs
+       yarn
+       python39
+       pipenv
+       postgresql
+       mysql
+       mongodb
+       redis
+       php
+       composer
+       apache
+       nginx
+       phpmyadmin
+       wordpress
+       java
+       gradle
+       intellij-idea-ultimate-edition
+       android-studio
+       visual-studio-code
+       .
+       .
+       .
+     ];
+     
+     systemPackages = [
+       # System packages specific to your hardware or preferences
+       intel-microcode
+       linux-firmware
+       networkmanager
+       wpa_supplicant
+       wireless-tools
+       xorg
+       xorg-server
+       xorg-apps
+       xorg-drivers
+       mesa
+       libglvnd
+       wayland
+       weston
+       lightdm
+       lightdm-gtk-greeter
+       pulseaudio
+       bluez
+       bluez-utils
+       blueberry
+       blueman
+       cups
+       samba
+       avahi
+       exfat-utils
+       fuse
+       htop
+       mc
+       ranger
+       tree
+       unrar
+       zip
+       vlc
+       mpv
+       handbrake
+       audacity
+       inkscape
+       gimp
+       shotwell
+       gnome-tweaks
+       gnome-shell-extensions
+       gnome-terminal
+       gnome-calculator
+       gnome-system-monitor
+       gnome-disk-utility
+       gnome-boxes
+       gnome-clocks
+       gnome-logs
+       gnome-characters
+       gnome-dictionaries
+       gnome-font-viewer
+       gnome-software
+       gnome-themes-extra
+       gnome-backgrounds
+       gnome-color-manager
+       gnome-control-center
+       gnome-initial-setup
+       gnome-keyring
+       gnome-online-accounts
+       gnome-settings-daemon
+       gnome-session
+       gnome-session-wayland
+       gnome-shell
+       gnome-shell-extension-appindicator
+       gnome-shell-extension-desktopicons-ng
+       gnome-shell-extension-dash-to-panel
+       gnome-shell-extension-top-icons-plus
+       gnome-shell-extension-workspaces-at-top
+       gnome-shell-extension-window-list-applet
+       gnome-shell-extension-ubuntu-dock
+       gnome-shell-extension-gnome-shell-status-menu
+       gnome-shell-extension-open-with-chooser
+       gnome-shell-extension-user-theme
+       gnome-shell-extension-alternative-status-menu
+       gnome-shell-extension-hide-activities-overview
+       gnome-shell-extension-no-titlebar-buttons
+       gnome-shell-extension-show-hibernate-in-power-button
+       gnome-shell-extension-system-monitor-indicator
+       gnome-shell-extension-
