@@ -1,0 +1,134 @@
+{ pkgs ? import <nixpkgs> {} }:
+
+# Tor Browser
+tor-browser = pkgs.callPackage ./packages/tor-browser.nix;
+
+# Qubes OS
+qubes-os = pkgs.callPackage ./packages/qubes-os.nix;
+
+# Tails OS
+tails-os = pkgs.callPackage ./packages/tails-os.nix;
+
+# Whonix
+whonix = pkgs.callPackage ./packages/whonix.nix;
+
+# GNU Privacy Guard (GPG)
+gpg = pkgs.callPackage ./packages/gpg.nix;
+
+# TrueCrypt alternative - VeraCrypt
+veracrypt = pkgs.callPackage ./packages/veracrypt.nix;
+
+# Secure email client - Enigmail
+enigmail = pkgs.callPackage ./packages/enigmail.nix;
+
+# Anonymous browsing tool - TorBirdy
+torbirdy = pkgs.callPackage ./packages/torbirdy.nix;
+
+# Encrypted messaging app - Signal
+signal = pkgs.callPackage ./packages/signal.nix;
+
+# Virtual Private Network (VPN) service - ProtonVPN
+protonvpn = pkgs.callPackage ./packages/protonvpn.nix;
+
+# Password manager - KeePassXC
+keepassxc = pkgs.callPackage ./packages/keepassxc.nix;
+
+# File encryption utility - GnuPG Tools
+gnupgtools = pkgs.callPackage ./packages/gnupgtools.nix;
+
+# Decentralized social media platform - Mastodon
+mastodon = pkgs.callPackage ./packages/mastodon.nix;
+
+# Bitwarden password manager
+bitwarden = pkgs.callPackage ./packages/bitwarden.nix;
+
+# DuckDuckGo privacy browser
+duckduckgo = pkgs.callPackage ./packages/duckduckgo.nix;
+
+# Torch browser with built-in privacy features
+torch = pkgs.callPackage ./packages/torch.nix;
+
+# OnionShare secure file sharing tool
+onionshare = pkgs.callPackage ./packages/onionshare.nix;
+
+# Obfuscation tool - Steghide
+steghide = pkgs.callPackage ./packages/steghide.nix;
+
+# Metadata removal tool - Eraser
+eraser = pkgs.callPackage ./packages/eraser.nix;
+
+# Email encryption plugin for Thunderbird - Enigmail
+thunderbirdEnigmail = pkgs.callPackage ./packages/thunderbirdEnigmail.nix;
+
+# Text editor with strong security features - Sublime Text
+sublimetext = pkgs.callPackage ./packages/sublimetext.nix;
+
+# Command-line interface to access the Tor network - torctl
+torctl = pkgs.callPackage ./packages/torctl.nix;
+
+# Off-the-Record Messaging (OTR) plugin for Pidgin instant messenger
+otrPidgin = pkgs.callPackage ./packages/otrPidgin.nix;
+
+# Open source cryptocurrency wallet - Electrum
+electrum = pkgs.callPackage ./packages/electrum.nix;
+
+# Secure communication tool - Signal Desktop
+signalDesktop = pkgs.callPackage ./packages/signalDesktop.nix;
+
+# Secure web browser based on Chromium with built-in privacy features - Brave
+brave = pkgs.callPackage ./packages/brave.nix;
+
+# Secure email client - Claws Mail
+clawsmail = pkgs.callPackage ./packages/clawsmail.nix;
+
+# Secure instant messaging application - Riot
+riot = pkgs.callPackage ./packages/riot.nix;
+
+# Secure file storage and synchronization service - Nextcloud
+nextcloud = pkgs.callPackage ./packages/nextcloud.nix;
+
+# Secure video conferencing software - Jitsi Meet
+jitsiMeet = pkgs.callPackage ./packages/jitsiMeet.nix;
+
+# Secure voice over IP (VoIP) solution - Linphone
+linphone = pkgs.callPackage ./packages/linphone.nix;
+
+________________________________________________________________
+
+{ pkgs ? import <nixpkgs> {} }:
+
+{ name, version, sha256 }:
+
+let
+  torBrowserUrl = "https://dist.torproject.org/{$version}/";
+  torBrowserZipFile = "${torBrowserUrl}TorBrowser-Linux-x86_64-${version}.tar.gz";
+  torBrowserDirName = "TorBrowser-Linux-x86_64-${version}";
+in
+
+with import <nixpkgs> {};
+
+stdenv.mkDerivation rec {
+  name = "tor-browser";
+  version = version;
+  src = fetchurl {
+   url = torBrowserZipFile;
+   sha256 = sha256;
+  };
+ 
+  buildInputs = [ gtk3 ];
+ 
+  configurePhase = ''
+   mkdir -p ${out}/usr/share/applications
+   cp * ./* ./**/* ./.config/polkit-1/localauthority/50-local.d/com.mozilla.firefox.policy /etc/xdg/autostart/tor-launcher.desktop ${out}/usr/share/applications
+  '';
+ 
+  postUnpack = ''
+   cd $src
+   tar xfz *.tar.gz
+   mv ${torBrowserDirName} ${out}/
+  '';
+ 
+  nativeBuildInputs = [ gcc glibc libstdc++ zlib ];
+};
+
+
