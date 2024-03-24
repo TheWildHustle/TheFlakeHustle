@@ -1,0 +1,132 @@
+{ pkgs ? import <nixpkgs> {} }:
+
+# Steam client
+steamClient = pkgs.callPackage ./packages/steamclient.nix;
+
+# Epic Games Launcher
+epicGamesLauncher = pkgs.callPackage ./packages/epicgameslauncher.nix;
+
+# Origin client
+originClient = pkgs.callPackage ./packages/originclient.nix;
+
+# Battle.net launcher
+battleNetLauncher = pkgs.callPackage ./packages/battlenetlauncher.nix;
+
+# GOG Galaxy client
+gogGalaxyClient = pkgs.callPackage ./packages/goggalaxyclient.nix;
+
+# Discord voice chat app
+discord = pkgs.callPackage ./packages/discord.nix;
+
+# OBS Studio game capture and streaming tool
+obsStudio = pkgs.callPackage ./packages/obsstudio.nix;
+
+# Mumble VoIP server
+mumbleServer = pkgs.callPackage ./packages/mumbleserver.nix;
+
+# TeamSpeak VoIP server
+teamspeakServer = pkgs.callPackage ./packages/teamsspeakserver.nix;
+
+# Plex Media Server for organizing and streaming media content
+plexMediaServer = pkgs.callPackage ./packages/plexmediaserver.nix;
+
+# Kodi media center application
+kodi = pkgs.callPackage ./packages/kodi.nix;
+
+# VLC media player
+vlc = pkgs.callPackage ./packages/vlc.nix;
+
+# Steam Controller configuration utility
+steamControllerConfig = pkgs.callPackage ./packages/steamcontrollerconfig.nix;
+
+# Xpadder customizable keyboard and mouse mapping tool
+xpadder = pkgs.callPackage ./packages/xpadder.nix;
+
+# Razer Synapse configurator for Razer peripherals
+razersynapse = pkgs.callPackage ./packages/razer synapse.nix;
+
+# Logitech G Hub configurator for Logitech peripherals
+logitechgHub = pkgs.callPackage ./packages/logitechghub.nix;
+
+# Geforce Experience driver management tool from NVIDIA
+geforceExperience = pkgs.callPackage ./packages/geforcesexperience.nix;
+
+# AMD Adrenalin driver management tool
+amdAdrenalin = pkgs.callPackage ./packages/amdadrenalin.nix;
+
+# Intel Graphics Control Panel for managing Intel graphics settings
+intelGraphicsControlPanel = pkgs.callPackage ./packages/intelgraphicscontrolpanel.nix;
+
+# DXVK compatibility layer for running Windows games on Linux
+dxvk = pkgs.callPackage ./packages/dxvk.nix;
+
+# Proton compatibility layer for running Windows games on Linux
+proton = pkgs.callPackage ./packages/proton.nix;
+
+# Wine compatibility layer for running Windows applications on Linux
+wine = pkgs.callPackage ./packages/wine.nix;
+
+# PlayOnLinux wrapper for installing and running Windows games on Linux
+playonlinux = pkgs.callPackage ./packages/playonlinux.nix;
+
+# Lutris game manager and library for Linux gamers
+lutris = pkgs.callPackage ./packages/lutris.nix;
+
+# RetroArch emulation frontend with support for various systems
+retroarch = pkgs.callPackage ./packages/retroarch.nix;
+
+# Dolphin GameCube and Wii emulator
+dolphin = pkgs.callPackage ./packages/dolphin.nix;
+
+# PPSSPP PSP emulator
+ppsspp = pkgs.callPackage ./packages/ppsspp.nix;
+
+# DeSmuME Nintendo DS emulator
+desmume = pkgs.callPackage ./packages/desmume.nix;
+
+# Citra 3DS emulator
+citra = pkgs.callPackage ./packages/citra.nix;
+
+# OpenELEC lightweight operating system for KODI media centers
+openelec = pkgs.callPackage ./packages/openelec.nix;
+
+# LibreELEC lightweight operating system for KODI media centers
+libreelec = pkgs.callPackage ./packages/libreelec.nix;
+Replace the package names in this example list with your desired applications, tools, or utilities. You can find more packages by searching through the Nixpkgs repository.
+_________________________________________________________________________________________________________________________________________________________________________________
+Create package definitions: For each dependency listed above, create a separate .nix file inside the packages directory of your flake. For instance, you could have a steamclient.nix, epicgameslauncher.nix, etc., files containing the necessary configuration for building and installing those specific packages. Here's an example for the Steam client:
+_________________________________________________________________________________________________________________________________________________________________________________
+{ pkgs ? import <nixpkgs> {} }:
+
+{ name, version, sha256 }:
+
+let
+  steamClientUrl = "https://steamcdn-a.akamaihd.net/{$version}/SteamInstall/${name}_${version}.exe";
+  steamClientDirName = "${name} ${version}";
+in
+
+with import <nixpkgs> {};
+
+stdenv.mkDerivation rec {
+  name = "steamclient";
+  version = version;
+  src = fetchurl {
+  url = steamClientUrl;
+  sha256 = sha256;
+  };
+ 
+  buildInputs = [ gtk3 ];
+ 
+  configurePhase = ''
+  mkdir -p ${out}/usr/share/applications
+  cp * ./* ./**/* ./.config/polkit-1/localauthority/50-local.d/com.valvesoftware.Steam.policy /etc/xdg/autostart/steam-launcher.desktop ${out}/usr/share/applications
+  '';
+ 
+  postUnpack = ''
+  cd $src
+  tar xfz *.tar.gz
+  mv ${steamClientDirName} ${out}/
+  '';
+ 
+  nativeBuildInputs = [ gcc glibc libstdc++ zlib ];
+};
