@@ -1,7 +1,13 @@
-Hey Freaks! 
+Hey Freaks,
 
-I created a flake for a dev environment on nix os......and for my next trick, i'll pull a rabbit out of a hat!
+TheWildHustle is a nix noob running flake/home manager experiments
+Hustle thinks the potential of modular and declarative builds is underrated 
+____________________________________________________________________________
+Roadmap 
+- 10 fully developed and practical flakes
+- home manager to move between the flakes
+- Flakes uploaded to gitworkshop.dev
+- Pay sats for Cool flakes on Stacker News
 
-comments, questions, and advice are welcome!
-Thanks,
+Stay curious freaks,
 Hustle
